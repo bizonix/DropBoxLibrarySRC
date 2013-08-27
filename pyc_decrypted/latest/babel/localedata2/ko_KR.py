@@ -1,0 +1,2 @@
+#Embedded file name: babel/localedata2/ko_KR.py
+data = '\x80\x02}q\x00(U\x10currency_symbolsq\x01}q\x02U\x12scientific_formatsq\x03}q\x04U\x0fpercent_formatsq\x05}q\x06U\x0enumber_symbolsq\x07}q\x08U\tweek_dataq\t}q\nU\tfirst_dayq\x0bK\x06sU\x0czone_formatsq\x0c}q\rU\x10currency_formatsq\x0e}q\x0fU\tlanguagesq\x10}q\x11U\x0bterritoriesq\x12}q\x13U\ntime_zonesq\x14}q\x15U\x07scriptsq\x16}q\x17U\x0fdecimal_formatsq\x18}q\x19U\nmeta_zonesq\x1a}q\x1bU\x08variantsq\x1c}q\x1dU\x0ecurrency_namesq\x1e}q\x1fu.'

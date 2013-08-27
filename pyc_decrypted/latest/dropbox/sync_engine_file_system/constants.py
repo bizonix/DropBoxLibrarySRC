@@ -1,0 +1,29 @@
+#Embedded file name: dropbox/sync_engine_file_system/constants.py
+import os
+FILE_TYPE_DIRECTORY = 'directory'
+FILE_TYPE_REGULAR = 'regular'
+FILE_TYPE_UNKNOWN = 'unknown'
+FILE_TYPE_POSIX_BLOCK_DEVICE = 'block'
+FILE_TYPE_POSIX_CHARACTER_DEVICE = 'character'
+FILE_TYPE_POSIX_FIFO = 'fifo'
+FILE_TYPE_POSIX_SYMLINK = 'symlink'
+FILE_TYPE_POSIX_SOCKET = 'socket'
+SEEK_CUR = os.SEEK_CUR
+SEEK_END = os.SEEK_END
+SEEK_SET = os.SEEK_SET
+IGNORE_BAD_SYMLINK_CODE = 'bad symlink'
+IGNORE_CACHE_PATH_CODE = 'cache path'
+IGNORE_CONTAINS_BACKSLASH_CODE = 'contains "\\" character'
+IGNORE_CONTAINS_DOUBLE_BACKSLASH_CODE = 'ends in "\\\\" character'
+IGNORE_DROPBOX_WRITE_CODE = 'dropbox write'
+IGNORE_ENDS_BACKSLASH_CODE = 'ends in "\\" character'
+IGNORE_FOUR_BYTE_UNICODE_CODE = 'four byte unicode'
+IGNORE_INVALID_FILENAME_CODE = 'invalid filename'
+IGNORE_INVALID_NFC_CODE = 'invalid nfc normalization'
+IGNORE_INVALID_NFD_CODE = 'invalid nfd normalization'
+IGNORE_NOT_REGULAR_FILE_CODE = 'not a regular file'
+IGNORE_SELECTIVE_SYNC_CODE = 'selective sync ignored path'
+IGNORE_UNWATCHED_CODE = 'unwatched path'
+IGNORE_UNKNOWN_CODE = 'unknown error'
+IGNORE_WHITESPACE_PATH_CODE = 'whitespace path component'
+IGNORE_ALIAS_FILE_CODE = 'alias file'

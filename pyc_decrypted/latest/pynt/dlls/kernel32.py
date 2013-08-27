@@ -1,0 +1,141 @@
+#Embedded file name: pynt/dlls/kernel32.py
+from __future__ import absolute_import
+from ctypes.wintypes import BOOL, DWORD, HLOCAL, LARGE_INTEGER, LPCWSTR, LPWSTR, POINTER, FILETIME, HANDLE
+from ..lazydll import FakeDLL, LazyDLL
+from ..types import LPDWORD, LPVOID, VOID, LPSECURITY_ATTRIBUTES, SIZE_T, ULONGLONG
+from ..headers.WinBase import LPBY_HANDLE_FILE_INFORMATION, LPOVERLAPPED
+
+class Kernel32(LazyDLL):
+
+    def __init__(self):
+        super(Kernel32, self).__init__(kernel32=self)
+        self._dllname = u'Kernel32'
+        self._func_defs = {'FormatMessageW': {'restype': DWORD,
+                            'argtypes': [DWORD,
+                                         LPVOID,
+                                         DWORD,
+                                         DWORD,
+                                         LPCWSTR,
+                                         DWORD,
+                                         LPVOID],
+                            '__doc__': u'Formats a message string.',
+                            'when_not_found': self.return_false},
+         'GetLastError': {'restype': DWORD,
+                          'argtypes': [],
+                          '__doc__': u"Retrieves the calling thread's last-error code value. Thelast-error code is maintained on a per-thread basis. Multiplethreads do not overwrite each other's last-error code.",
+                          'when_not_found': self.return_error_success},
+         'LocalFree': {'restype': HLOCAL,
+                       'argtypes': [LPVOID],
+                       '__doc__': u'Frees the specified local memory object and invalidates its handle.',
+                       'when_not_found': self.return_none},
+         'OutputDebugStringW': {'restype': VOID,
+                                'argtypes': [LPCWSTR],
+                                '__doc__': u'Sends a string to the debugger for display.',
+                                'unicode': True,
+                                'when_not_found': self.return_none},
+         'QueryPerformanceCounter': {'restype': BOOL,
+                                     'argtypes': [POINTER(LARGE_INTEGER)],
+                                     '__doc__': u'Retrieves the current value of the high-resolutionperformance counter.',
+                                     'when_not_found': self.return_false},
+         'QueryPerformanceFrequency': {'restype': BOOL,
+                                       'argtypes': [POINTER(LARGE_INTEGER)],
+                                       '__doc__': u'Retrieves the frequency of the high-resolutionperformance counter, if one exists. The frequencycannot change while the system is running.',
+                                       'when_not_found': self.return_false},
+         'GetVolumeNameForVolumeMountPointW': {'restype': BOOL,
+                                               'argtypes': [LPCWSTR, LPCWSTR, DWORD],
+                                               '__doc__': u'Retrieves a volume GUID path for the volume that isassociated with the specified volume mount point(drive letter, volume GUID path, or mounted folder).',
+                                               'when_not_found': self.return_false},
+         'GetCurrentThreadId': {'restype': DWORD,
+                                'argtypes': [],
+                                '__doc__': u'Retrieves the thread identifier of the calling thread',
+                                'when_not_found': self.return_none},
+         'GetProcessTimes': {'restype': BOOL,
+                             'argtypes': [HANDLE,
+                                          POINTER(FILETIME),
+                                          POINTER(FILETIME),
+                                          POINTER(FILETIME),
+                                          POINTER(FILETIME)],
+                             '__doc__': u'Gets timing information for the specified process.',
+                             'when_not_found': self.return_false},
+         'GetVolumeInformationW': {'restype': BOOL,
+                                   'argtypes': [LPCWSTR,
+                                                LPWSTR,
+                                                DWORD,
+                                                LPDWORD,
+                                                LPDWORD,
+                                                LPDWORD,
+                                                LPWSTR,
+                                                DWORD],
+                                   '__doc__': u'Retrieves information about the file system and volume associated with the specified root directory.',
+                                   'when_not_found': self.return_false},
+         'VirtualAllocEx': {'restype': LPVOID,
+                            'argtypes': [HANDLE,
+                                         LPVOID,
+                                         SIZE_T,
+                                         DWORD,
+                                         DWORD],
+                            '__doc__': u'Reserves or commits a region of memory within thevirtual address space of a specified process'},
+         'VirtualFreeEx': {'restype': BOOL,
+                           'argtypes': [HANDLE,
+                                        LPVOID,
+                                        SIZE_T,
+                                        DWORD],
+                           '__doc__': u'Releases, decommits, or releases and decommits aregion of memory within the virtual address spaceof a specified process.'},
+         'ReadProcessMemory': {'restype': BOOL,
+                               'argtypes': [HANDLE,
+                                            LPVOID,
+                                            LPVOID,
+                                            SIZE_T,
+                                            POINTER(SIZE_T)],
+                               '__doc__': u'Reads data from an area of memory in a specified process.'},
+         'GetCommandLineW': {'restype': LPCWSTR,
+                             'argtypes': [],
+                             '__doc__': u'Retrieves the command line string for the current process.',
+                             'when_not_found': self.return_none},
+         'GetFileSizeEx': {'restype': BOOL,
+                           'argtypes': [HANDLE, POINTER(LARGE_INTEGER)],
+                           '__doc__': u'Retrieves the size of the specified file.',
+                           'when_not_found': self.return_false},
+         'GetTickCount64': {'restype': ULONGLONG,
+                            'argtypes': [],
+                            '__doc__': 'Retrieves the number of milliseconds that have elapsed since the system was started.',
+                            'when_not_found': self.raise_not_implemented_error},
+         'GetTickCount': {'restype': DWORD,
+                          'argtypes': [],
+                          '__doc__': 'Retrieves the number of milliseconds that have elapsed since the system was started, up to 49.7 days.',
+                          'when_not_found': self.raise_not_implemented_error}}
+        self.F('ReplaceFileW', BOOL, [(LPCWSTR, 'lpReplacedFileName'),
+         (LPCWSTR, 'lpReplacementFileName'),
+         (LPCWSTR, 'lpBackupFileName'),
+         (DWORD, 'dwReplaceFlags'),
+         (LPVOID, 'lpExclude'),
+         (LPVOID, 'lpReserved')], self.return_false, doc=u'Replaces one file with another file, with the option of creating a backup copy of the original file. The replacement file assumes the name of the replaced file and its identity.')
+        self.F('DeviceIoControl', BOOL, [(HANDLE, 'hDevice'),
+         (DWORD, 'dwIoControlCode'),
+         (LPVOID, 'lpInBuffer'),
+         (DWORD, 'nInBuffer'),
+         (LPVOID, 'lpOutBuffer'),
+         (DWORD, 'nOutBufferSize'),
+         (LPDWORD, 'lpBytesReturned'),
+         (LPOVERLAPPED, 'lpOverlapped')], self.return_false, doc=u'Sends a control code directly to a specified device driver, causing the corresponding device to perform the corresponding operation.')
+        self.F('CreateFileW', HANDLE, [(LPCWSTR, 'lpFileName'),
+         (DWORD, 'dwDesiredAccess'),
+         (DWORD, 'dwShareMode'),
+         (LPSECURITY_ATTRIBUTES, 'lpSecurityAttributes'),
+         (DWORD, 'dwCreationDisposition'),
+         (DWORD, 'dwFlagsAndAttributes'),
+         (HANDLE, 'hTemplateFile')], self.return_invalid_handle, doc=u'Creates or opens a file or I/O device. The most commonly\nused I/O devices are as follows: file, file stream,\ndirectory, physical disk, volume, console buffer,\ntape drive, communications resource, mailslot, and pipe.\nThe function returns a handle that can be used to access\nthe file or device for various types of I/O depending on\nthe file or device and the flags and attributes specified.')
+        self.F('CloseHandle', BOOL, [(HANDLE, 'hObject')], self.return_false, doc=u'Closes an open object handle.')
+        self.F('GetFileInformationByHandle', BOOL, [(HANDLE, 'hFile'), (LPBY_HANDLE_FILE_INFORMATION, 'lpFileInformation')], self.return_false, doc=u'Retrieves file information for the specified file.')
+        self.F('MoveFileW', BOOL, [(LPCWSTR, 'lpExistingFileName'), (LPCWSTR, 'lpNewFileName')], self.return_false, doc=u'Moves an existing file or a directory, including its children.')
+        self.F('MoveFileExW', BOOL, [(LPCWSTR, 'lpExistingFileName'), (LPCWSTR, 'lpNewFileName'), (DWORD, 'dwFlags')], self.return_false, doc=u'Moves an existing file or a directory, including its children. Additional dwFlags control exact behavior.')
+        self.F('SetLastError', VOID, [(DWORD, 'dwErrorCode')], doc=u'Sets the last-error code for the calling thread.')
+        self.F('GetFileAttributesW', DWORD, [(LPCWSTR, 'lpFileName')], self.return_invalid_file_attributes, doc=u'Retrieves file system attributes for a specified file or directory.')
+        self.F('SetFileAttributesW', DWORD, [(LPCWSTR, 'lpFileName'), (DWORD, 'dwFileAttributes')], self.return_false, doc=u'Sets the attributes for a file or directory.')
+        self.F('GetFinalPathNameByHandleW', DWORD, [(HANDLE, 'hFile'),
+         (LPWSTR, 'lpszFilePath'),
+         (DWORD, 'cchFilePath'),
+         (DWORD, 'dwFlags')], self.return_zero, doc=u'Retrieves the final path for the specified file.')
+
+
+kernel32 = FakeDLL(Kernel32)
