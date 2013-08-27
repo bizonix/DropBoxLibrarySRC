@@ -1,0 +1,15 @@
+[submodule "Tools/dec"]
+	path = Tools/dec
+	url = https://github.com/rumpeltux/dropboxdec.git
+[submodule "Tools/uncompyle2"]
+	path = Tools/uncompyle2
+	url = https://github.com/Mysterie/uncompyle2.git
+[submodule "Tools/dedrop"]
+	path = Tools/dedrop
+	url = https://github.com/kholia/dedrop.git
+[submodule "Tools/dbx-keygen"]
+	path = Tools/dbx-keygen
+	url = https://github.com/newsoft/dbx-keygen-linux
+[submodule "Tools/sqlite3-dbx"]
+	path = Tools/sqlite3-dbx
+	url = https://github.com/newsoft/sqlite3-dbx.git
